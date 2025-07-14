@@ -52,7 +52,6 @@ PROMPT_EXTRAIR_INFO = (
     "Extraia e salve informações pessoais relevantes do usuário (nome, profissão, interesses, cidade, clube, etc) "
     "a partir da mensagem abaixo. Responda apenas com um JSON contendo os campos detectados.\n"
     "Mensagem: \"{user_text}\"\n"
-    "Exemplo de resposta: {{\"nome\": \"Leandro\", \"clube\": \"Sporting\"}}"
 )
 PROMPT_EXTRAIR_MEMORIA = (
     "A partir da mensagem do usuário abaixo, extraia apenas uma frase curta e objetiva que resuma uma informação pessoal relevante sobre o usuário, "
