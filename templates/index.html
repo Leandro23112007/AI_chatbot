@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Chatbot - Novo Chat</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="sidebar">
+        <button id="new-chat-btn" class="sidebar-btn">Novo chat</button>
+        <button class="sidebar-btn">Procurar chats</button>
+        <div class="sidebar-title">Chats</div>
+        <ul id="chat-list"></ul>
+        <button id="settings-btn" class="sidebar-button">Definições</button>
+    </div>
+    <div class="main-content">
+        <div id="chat-area">
+            <!-- As mensagens do chat aparecerão aqui -->
+            <div id="fim-chat"></div>
+        </div>
+        <!-- Área de upload e listagem de ficheiros -->
+        <div id="file-upload-area" style="margin: 0 30px 10px 30px;">
+            <form id="file-upload-form" style="display:flex;gap:10px;align-items:center;">
+                <input type="file" id="file-input" accept=".pdf,.txt" style="flex:1;">
+                <button type="submit" id="upload-btn" style="padding:6px 18px;border-radius:8px;background:#343541;color:#fff;border:none;cursor:pointer;">Enviar ficheiro</button>
+            </form>
+            <div id="file-list" style="margin-top:10px;"></div>
+        </div>
+        <div class="chat-input-area">
+            <div class="chat-input-wrapper">
+                <textarea id="chat-input" placeholder="Envie uma mensagem..." rows="1"></textarea>
+                <button id="send-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7 11L12 6L17 11M12 18V7" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Definições Principais -->
+    <div id="settings-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <div class="settings-container">
+                <div class="settings-section">
+                    <h2>Definições</h2>
+                    <div class="setting-item">
+                        <span>Tema</span>
+                        <select id="setting-theme" class="settings-select">
+                            <option value="dark">Escuro</option>
+                            <option value="light">Claro</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="settings-section">
+                    <h2>Personalização</h2>
+                    <div class="setting-item-column">
+                        <div class="setting-item no-border">
+                            <h3>Memória</h3>
+                        </div>
+                        <div class="setting-item">
+                            <div>
+                                <p>Fazer referência a memórias guardadas</p>
+                                <p class="setting-description">Permite que o ChatGPT guarde e use memórias ao responder.</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="setting-memory-saved">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                             <div>
+                                <p>Fazer referência ao histórico de chat</p>
+                                <p class="setting-description">Permitir que o ChatGPT faça referência a conversas recentes ao responder.</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="setting-memory-history">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <span>Gerir memórias</span>
+                        <button id="manage-memories-btn" class="settings-button">Gerir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Gerir Memórias (User Info) -->
+    <div id="user-info-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Gerir memórias</h2>
+            <p class="setting-description">As suas informações são usadas para personalizar as respostas do assistente. Elas não são partilhadas.</p>
+            <div id="user-memories-summary"></div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script>
+    function garantirFimChatNoFinal() {
+        const chatArea = document.getElementById('chat-area');
+        let fim = document.getElementById('fim-chat');
+        if (fim) {
+            chatArea.removeChild(fim);
+        }
+        fim = document.createElement('div');
+        fim.id = 'fim-chat';
+        chatArea.appendChild(fim);
+    }
+
+    function forceScrollToBottom() {
+        garantirFimChatNoFinal();
+        document.getElementById('fim-chat').scrollIntoView({ behavior: 'smooth' });
+    }
+    </script>
+    <!-- Highlight.js para syntax highlighting -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+</html> 

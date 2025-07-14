@@ -1,0 +1,9 @@
+flask
+flask-cors
+ollama
+bleach
+duckduckgo-search
+Pillow
+diffusers
+torch
+werkzeug 
